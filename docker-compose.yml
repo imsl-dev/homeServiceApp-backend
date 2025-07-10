@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: homeservice-postgres
+    environment:
+      POSTGRES_DB: homeservice_db
+      POSTGRES_USER: homeservice_user
+      POSTGRES_PASSWORD: homeservice_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Optional: Add initialization scripts
+      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
